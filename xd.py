@@ -1,6 +1,6 @@
 import openpyxl as xl
 
-def BorrarDuplicados(tabla, filas, numFilas):
+def BorrarDuplicados(archivo, tabla, filas, numFilas):
     i = 0
     while i < numFilas - 1:  # Usamos un bucle while para evitar saltos inesperados
         if filas[i] == filas[i + 1]:
@@ -9,6 +9,7 @@ def BorrarDuplicados(tabla, filas, numFilas):
             filas.pop(i + 1)  # Eliminamos el duplicado de la lista también
         else:
             i += 1  # Avanzamos solo si no eliminamos filas
+    archivo.save('Spotify Wrapped.xlsx')  # Guardamos los cambios en el archivo
 
 try:
 	excel = xl.load_workbook('Spotify Wrapped.xlsx')
@@ -29,4 +30,4 @@ canciones = [xd.cell(row=i+1,column=2).value for i in range(1, UltimaFila)]
 
 print(values)
 print(canciones)
-BorrarDuplicados(xd, canciones, UltimaFila-1)
+BorrarDuplicados(excel, xd, canciones, UltimaFila-1)
